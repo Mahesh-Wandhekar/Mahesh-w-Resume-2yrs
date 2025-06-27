@@ -1,0 +1,193 @@
+
+
+class LinnerSearch
+{
+    
+	//bubble sort
+	public static void bubblesort(int arr[]){
+		for(int i=0;i<arr.length-1;i++){
+			for(int j=0;j<arr.lenght-1;j++){
+				if(arr[j]>arr[j+1]){
+					int temp=arr[j];
+					arr[j]=arr[j+1];
+					arr[j+1]=temp;
+				}
+			}
+		}
+		Arrays.stream(arr).forEach(e->sout(e))
+	}
+
+
+
+	//selection sort
+	public static void selectionSort(int arr[]){
+		for(int i=0;i<arr.lenght-1;i++){
+			int min=i;
+			for(int j=i+1;j<arr.lenght;j++){
+				if(arr[min]>arr[j]){
+					min=j;
+				}
+			}
+			int temp=arr[min];
+			arr[min]=arr[i];
+			arr[i]=temp
+		}
+	}
+
+
+	//linnerSearch
+	public static void int linnerSerach(int arr[],int key){		
+ 	for(int num : arr){
+			if(num==key){
+				return key;
+			}
+		}
+		return -1;
+	}
+
+
+	//BinnarySearch
+	public static int BinnarySerach(int arr[],int key){
+		int left=0;int right=arr.lenght-1;
+		while(left<=right){
+			int mid=left+(right-left)/2;
+
+			if(arr[mid]==key){
+				return key;
+			}
+			if(arr[mid]<key){
+				left=mid+1;
+			}else{
+				right=mid-1;
+			}
+		}
+		return -1;
+	}
+
+
+	public static void main(String []args){
+		int arr[]={10,30,20,70,40,50};
+		int key=10;
+		int result=linnerSearch(arr,key);
+		sout(result!= -1 ? "Key Is Found"+ result : "key Is Not Found")
+	}
+}
+
+
+//Observer Design Pattern
+interface Observer
+{
+	void update(String msg);
+}
+
+
+public class Channel
+{
+	private String videoTitle;
+	private List<Observer> suscriber=new ArrayList();
+
+	public void Suscriber(Observer o){
+		suscriber.add(o);
+	}
+
+	public void unSuscriber(Observer o){
+		suscriber.remove(o);
+	}
+
+	public void uploadVideo(String videoTitle){
+		this.videoTitle=videoTitle;
+		notifyVideo();
+
+	}
+
+	private void notifyVideo(){
+		for(Observer o : suscriber){
+			o.update("New Video Added :" + videoTitle);
+		}
+	}
+}
+
+
+
+
+class Suscriber implements Observer
+{
+	private String name;
+
+	public Suscriber (String name){
+		this.name=name;
+	}
+
+	public void update(String msg){
+		Ststem.out.println(name+"Recived The Notification "+msg);
+	}
+
+
+}
+
+class Main
+{
+	public static void main(String agrs[]){
+		Channel ch1=new Channel();
+		Suscriber ram=new Suscriber("Ram");
+		Suscriber soma=new Suscriber("soma");
+		ch1.suscriber(rama);
+		ch1.suscriber(soma);
+		ch1.ouloadVideo("Java multithreading");
+	}
+}
+
+
+
+//Dependency Injection
+interface Engine
+{
+	void start();
+}
+
+
+class DiselEngine implements Engine
+{
+	public void start(){
+		Sout("Disel Engine Is Start");
+	}
+}
+
+
+class PetrolEngine implements Engine
+{
+	public void start(){
+		sout("Petrol Engine Is Start ")
+	}
+}
+
+
+
+class Car
+{
+	private Engine engine;
+
+	public Car(Engine engine){
+		this.engine=engine;
+	}
+
+	public void setEngine(Engine engine){
+		this.engine=engine;
+	}
+
+	public void drive(){
+		engine.drive();
+	}
+}
+
+
+
+public class Main
+{
+	public static void main(String args[]){		
+		Car car=new Car(new DiselEngine());
+		car.drive();
+		Car car=new Car();
+		car.setEngine(new PetrolEingine());
+	}
+}
